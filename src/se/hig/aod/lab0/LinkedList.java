@@ -12,19 +12,16 @@ public class LinkedList<T> implements List<T> {
 		}
 	}
 
-	
 	ListNode<T> head;
 
 	@Override
 	public boolean isEmpty() {
 		return (head == null);
-		
 	}
 
 	@Override
 	public void clear() {
 		head = null;
-		System.out.println("hej");
 	}
 
 	@Override
@@ -43,8 +40,9 @@ public class LinkedList<T> implements List<T> {
 
 	@Override
 	public void insertFirst(T t) {
-		ListNode<T> insertF = head;
-		insertF.data = t;
+		ListNode<T> newNode = new ListNode<>(t);
+		newNode.next = head;
+		head = newNode;
 	}
 
 	@Override
@@ -55,56 +53,69 @@ public class LinkedList<T> implements List<T> {
 			head = newNode;
 		} else {
 			ListNode<T> temp = head;
-			while (temp != null) {
+			while (temp.next != null) {
 				temp = temp.next;
 			}
+			temp.next = newNode;
 		}
-		temp.next = newNode;
 	}
 
 	@Override
 	public T removeFirst() {
-		T first;
-		try {
-			head.data = null;
-		} catch (Exception e) {
+		if (isEmpty()) {
 			throw new ListEmptyException("Listan är tom");
 		}
+
+		T first = head.data;
+		head = head.next;
+
 		return first;
 	}
 
 	@Override
 	public T removeLast() {
-		T last;
-		try {
-			
-		} catch (Exception e) {
+		if (isEmpty()) {
 			throw new ListEmptyException("Listan är tom");
 		}
-		return last;
-		// throw new UnsupportedOperationException("Unimplemented method 'removeLast'");
+
+		if (head.next == null) {
+			T data = head.data;
+			head = null;
+			return data;
+		}
+
+		ListNode<T> temp = head;
+		while (temp.next.next != null) { // Letar efter den näst sista noden
+			temp = temp.next; // Sparar den sista noden i temp
+		}
+
+		T data = temp.next.data; // Hämtar datan i den sista noden och sparar i data
+		temp.next = null; // Tar bort den sista noden
+		return data; // Returnerar data
 	}
 
 	@Override
 	public T getFirst() {
-		T first;
-		try {
-		} catch (Exception e) {
+		if (isEmpty()) {
 			throw new ListEmptyException("Listan är tom");
+		} else {
+			return head.data;
 		}
-		return first;
-		// throw new UnsupportedOperationException("Unimplemented method 'getFirst'");
 	}
 
 	@Override
 	public T getLast() {
-		T last;
-		try {
-		} catch (Exception e) {
+		if (isEmpty()) {
 			throw new ListEmptyException("Listan är tom");
 		}
-		return last;
-		// throw new UnsupportedOperationException("Unimplemented method 'getLast'");
+
+		ListNode<T> temp = head;
+
+		while (temp.next != null) {
+			temp = temp.next;
+		}
+
+		return temp.data;
 	}
 
 }
