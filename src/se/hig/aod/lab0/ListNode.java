@@ -1,11 +1,11 @@
-package se.hig.aod.lab0;
+// package se.hig.aod.lab0;
 
-class ListNode<T> {
-    T data;
-    Node next;
+// class ListNode<T> {
+//     T data;
+//     Node next;
 
-    Node(T d) {
-            data = d;
-            next = null;
-        }
-}
+//     Node(T d) {
+//             data = d;
+//             next = null;
+//         }
+// }
