@@ -12,7 +12,7 @@ class LinkedListTest {
 	private final int[] fixture = { 1, 2, 3, 4, 5 };
 
 	/**
-	 * Resets list to a new empty LinkedList-instance
+	 * Resets listUnderTest to a new empty LinkedList-instance
 	 * before each test method is executed.
 	 * 
 	 * @throws Exception
@@ -23,7 +23,7 @@ class LinkedListTest {
 	}
 
 	/**
-	 * Sets list to null after each test method is executed.
+	 * Sets listUnderTest to null after each test method is executed.
 	 * 
 	 * @throws Exception
 	 */
@@ -37,7 +37,7 @@ class LinkedListTest {
 	 */
 	@Test
 	public void testEmptyListIsEmpty() {
-		assertTrue(listUnderTest.isEmpty(), "An empty list instance should not contain any item");
+		assertTrue(listUnderTest.isEmpty(), "An empty listUnderTest instance should not contain any item");
 	}
 
 	/**
@@ -46,7 +46,7 @@ class LinkedListTest {
 	@Test
 	public void testInitializedListIsNotEmpty() {
 		initializeList();
-		assertFalse(listUnderTest.isEmpty(), "A list instance containing elements should not be empty");
+		assertFalse(listUnderTest.isEmpty(), "A listUnderTest instance containing elements should not be empty");
 	}
 
 	/**
@@ -55,7 +55,8 @@ class LinkedListTest {
 	@Test
 	public void testClearOnEmptyList() {
 		listUnderTest.clear();
-		assertTrue(listUnderTest.isEmpty(), "An empty list instance that is cleared should not contain any item");
+		assertTrue(listUnderTest.isEmpty(),
+				"An empty listUnderTest instance that is cleared should not contain any item");
 	}
 
 	/*
@@ -73,7 +74,7 @@ class LinkedListTest {
 	@Test
 	public void testGetFirstOnEmptyList() {
 		assertThrows(ListEmptyException.class, () -> listUnderTest.getFirst(),
-				"GetFirst() on empty list should throw ListEmptyException");
+				"GetFirst() on empty listUnderTest should throw ListEmptyException");
 	}
 
 	/**
@@ -82,7 +83,7 @@ class LinkedListTest {
 	@Test
 	public void testGetFirstOnInitializedList() {
 		initializeList();
-		assertEquals(1, listUnderTest.getFirst(), "GetFirst() should return first element in list");
+		assertEquals(1, listUnderTest.getFirst(), "GetFirst() should return first element in listUnderTest");
 	}
 
 	/*
@@ -99,6 +100,64 @@ class LinkedListTest {
 		for (int i = 0; i < fixture.length; i++) {
 			listUnderTest.insertLast(fixture[i]);
 		}
+	}
+
+	// Enga tester------------------------------
+
+	@Test
+	public void testInsertFirstAndGetFirst() {	//Testa att lägga in element i första noden och hämta den
+		listUnderTest.insertFirst(10);
+		assertEquals(10, listUnderTest.getFirst());
+
+		listUnderTest.insertFirst(20);
+		assertEquals(20, listUnderTest.getFirst());
+	}
+
+	@Test
+	public void testInsertLastAndGetLast() {	//Testa att lägga in i element i sista noden
+		listUnderTest.insertLast(1);
+		listUnderTest.insertLast(2);
+		listUnderTest.insertLast(3);
+		assertEquals(3, listUnderTest.getLast());
+		assertEquals(1, listUnderTest.getFirst());
+	}
+
+	@Test
+	public void testRemoveFirst() {	//Testa att ta bort elementet från första noden och hämta den
+		listUnderTest.insertLast(1);
+		listUnderTest.insertLast(2);
+		assertEquals(1, listUnderTest.removeFirst());
+		assertEquals(2, listUnderTest.getFirst());
+	}
+
+	@Test
+	public void testRemoveLast() {	//Testa att ta bort sista elementet och hämta den
+		listUnderTest.insertLast(10);
+		listUnderTest.insertLast(20);
+		listUnderTest.insertLast(30);
+
+		assertEquals(30, listUnderTest.removeLast());
+		assertEquals(20, listUnderTest.getLast());
+		assertEquals(2, listUnderTest.numberOfElements());
+	}
+
+	@Test
+	public void testNumberOfElements() {	//Testa att hämta antal element
+		assertEquals(0, listUnderTest.numberOfElements());
+		listUnderTest.insertLast(1);
+		listUnderTest.insertLast(2);
+		assertEquals(2, listUnderTest.numberOfElements());
+		listUnderTest.removeFirst();
+		assertEquals(1, listUnderTest.numberOfElements());
+	}
+
+	@Test
+	public void testClear() {	//Testa att rensa listan
+		listUnderTest.insertLast(10);
+		listUnderTest.insertLast(20);
+		listUnderTest.clear();
+		assertTrue(listUnderTest.isEmpty());
+		assertEquals(0, listUnderTest.numberOfElements());
 	}
 
 }
