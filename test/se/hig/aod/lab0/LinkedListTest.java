@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LinkedListTest {
-
 	private LinkedList<Integer> listUnderTest;
 	private final int[] fixture = { 1, 2, 3, 4, 5 };
 
